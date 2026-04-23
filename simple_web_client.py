@@ -22,12 +22,17 @@ class SimpleWebClient:
             if userInput is not None and userInput != "":
 
                 parts = userInput.split(" ")
+
+                # Debug Help for understanding what is grabbed from user
+                for s in parts:
+                    print(s)
+
                 if parts[0] == "PUT":
                     scan = open(parts[1], 'r')
                     file = ""
                     for line in scan:
                         file += line if line.endswith('\n') else line + "\n"
-                    userInput = userInput + "\n" + file
+                    userInput = "PUT " + parts[2] + "\n" + file
                     scan.close()
 
                 out.write(userInput + "\n")
@@ -38,7 +43,7 @@ class SimpleWebClient:
                     print("Response from Server: ")
                     print(response)
                     response = in_.readline().rstrip('\n')
-                    while response is not None and response != "":
+                    while response is not None:
                         print(response)
                         response = in_.readline().rstrip('\n')
 

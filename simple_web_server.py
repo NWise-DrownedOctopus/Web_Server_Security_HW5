@@ -31,6 +31,7 @@ class SimpleWebServer:
     def run(self):
         while True:
             # wait for a connection from a client
+            print("Waiting for Client to connect with accpet()")
             s, addr = SimpleWebServer.dServerSocket.accept()
 
             # then process the client's request
@@ -61,9 +62,16 @@ class SimpleWebServer:
         except Exception:
             return
 
+        # Grab command type
         command = st[0]
-        pathname = st[1]
 
+        # If we get simple command, set pathname to default location
+        if len(st) == 1:
+            pathname = "index.html"
+        else:
+            pathname = st[1]
+
+        # Log input
         self.logEntry("log.txt", command + " " + pathname)
 
         if command == "GET":
